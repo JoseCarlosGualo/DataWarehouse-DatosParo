@@ -24,5 +24,6 @@ lista_no_aplanada = tabla_paro[['Paro hombre edad < 25','Paro hombre edad 25 -45
 lista_aplanada = [item for l in lista_no_aplanada for item in l]
 
 tabla_paro_hechos['PARO'] = lista_aplanada
-tabla_paro_hechos.to_csv('tabla_hechos.csv', sep=';' ,index=False)
+tabla_paro_hechos = tabla_paro_hechos.rename(columns={'Codigo mes':'ID_TIEMPO'})
+tabla_paro_hechos.to_csv('tabla_hechos_paro_por_rango_edad.csv', sep=';' ,index=False)
 print(tabla_paro_hechos)
