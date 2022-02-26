@@ -6,6 +6,7 @@ import pandas as pd
 tabla_paro = pd.read_csv('datos_intermedios.csv', sep= ";", header=0, encoding='latin-1')
 
 tiempo_dimension = tabla_paro.drop_duplicates(['Codigo mes','mes','anualidad'])[['Codigo mes','mes','anualidad']]
+tiempo_dimension = tiempo_dimension.rename(columns={'Codigo mes':'ID_TIEMPO'})
 tiempo_dimension.to_csv('dimension_tiempo.csv', sep=';', index=False)
 
 lugares_dimension = tabla_paro.drop_duplicates(['Comunidad Autonoma','Provincia','Municipio'])[['Comunidad Autonoma','Provincia','Municipio']]

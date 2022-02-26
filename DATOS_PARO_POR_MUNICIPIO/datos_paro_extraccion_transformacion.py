@@ -19,6 +19,15 @@ def sep_ano(row):
     ano = row['mes'].split()[2]
     return ano
 
+def remove_special_characters(df):
+    # Create dictionary with special characters and its replacements
+    elements_to_replace_dict = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','ñ':'n'}
+    df = df.replace({'Comunidad Autonoma': elements_to_replace_dict}, regex=True)
+    df = df.replace({'Provincia': elements_to_replace_dict}, regex=True)
+    df = df.replace({'Municipio': elements_to_replace_dict}, regex=True)
+    # Return resulting dataframe
+    return df
+
 
 # INICIO DEL PROCESO DE EXTRACCIÓN
 # CARGA DE LOS DATOS EN ARCHIVOS CSV A TABLAS DE PANDAS
@@ -54,6 +63,7 @@ datos_paro["Paro Hombres"] = datos_paro.apply(lambda row: paro_hombres(row), axi
 datos_paro["Paro Mujeres"] = datos_paro.apply(lambda row: paro_mujeres(row), axis=1)
 datos_paro["anualidad"] = datos_paro.apply(lambda row: sep_ano(row), axis=1)
 datos_paro["mes"] = datos_paro.apply(lambda row: sep_mes(row), axis=1)
+datos_paro = remove_special_characters(datos_paro)
 print(datos_paro)
 datos_paro.to_csv('datos_intermedios.csv', sep=';', index=False)
 
